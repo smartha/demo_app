@@ -1,0 +1,33 @@
+<%= form_for(@micropost) do |f| %>
+  <% if @micropost.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@micropost.errors.count, "error") %> prohibited this micropost from being saved:</h2>
+
+      <ul>
+      <% @micropost.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </div>
+  <div class="field">
+    <% 
+      u = Hash.new
+      User.all.each do |user| 
+        u[user.name] = user.id
+      end
+      default_val = f.object.user_id
+    %>
+    <%= f.label :user %><br />
+    <%= f.select :user_id, options_for_select(u, default_val) %>
+    <%#= f.number_field :user_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
