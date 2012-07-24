@@ -12,6 +12,7 @@
 <% @microposts.each do |micropost| %>
   <tr>
     <td><%= micropost.content %></td>
+    <% defined? micropost.user %>
     <td><%= micropost.user.name %></td>
     <td><%= link_to 'Show', micropost %></td>
     <td><%= link_to 'Edit', edit_micropost_path(micropost) %></td>
